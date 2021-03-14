@@ -1,9 +1,9 @@
 [submodule "lib/json"]
 	path = lib/json
-	url = git@github.com:nlohmann/json.git
+	url = https://github.com/nlohmann/json.git
 [submodule "lib/curlpp"]
 	path = lib/curlpp
-	url = git@github.com:jpbarrette/curlpp.git
+	url = https://github.com/jpbarrette/curlpp.git
 [submodule "lib/rapidxml"]
 	path = lib/rapidxml
-	url = git@github.com:discord/rapidxml.git
+	url = https://github.com/discord/rapidxml.git
