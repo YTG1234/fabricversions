@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+mkdir -p out
+cd out
+cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=release

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+cd out
+if [ -z "$1" ]; then
+    ./fabricV
+else
+	./fabricV $@
+fi
