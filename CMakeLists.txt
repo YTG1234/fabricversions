@@ -12,7 +12,6 @@ set_property (TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
 
 set (JSON_BuildTests OFF CACHE INTERNAL "")
 add_subdirectory ("${lib_dir}/json")
-
 target_link_libraries (${PROJECT_NAME} nlohmann_json::nlohmann_json)
 
 add_subdirectory ("${lib_dir}/curlpp")
@@ -20,3 +19,6 @@ target_link_libraries (${PROJECT_NAME} curlpp_static)
 target_include_directories (${PROJECT_NAME} PRIVATE "${lib_dir}/curlpp/include")
 
 target_include_directories (${PROJECT_NAME} PRIVATE "${lib_dir}/rapidxml")
+
+add_subdirectory ("${lib_dir}/libcolors")
+target_link_libraries (${PROJECT_NAME} colors)

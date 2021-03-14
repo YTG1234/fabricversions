@@ -7,3 +7,6 @@
 [submodule "lib/rapidxml"]
 	path = lib/rapidxml
 	url = https://github.com/discord/rapidxml.git
+[submodule "lib/libcolors"]
+	path = lib/libcolors
+	url = https://github.com/YTG1234/libcolors.git
