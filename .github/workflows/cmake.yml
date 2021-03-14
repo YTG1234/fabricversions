@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        os: [ ubuntu-latest, macos-latest ]
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
     # cross-platform coverage.
@@ -47,5 +47,5 @@ jobs:
     - name: Upload stuff
       uses: actions/upload-artifact@v2
       with:
-        name: Artifact
-        path: ${{github.workspace}}/out/fabricV*
+        name: Artifact for ${{ matrix.os }}
+        path: ${{github.workspace}}/out/fabricV
