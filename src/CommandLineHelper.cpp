@@ -6,6 +6,22 @@
 #include "_internal.h"
 
 namespace cmdline {
+    void show_help(std::ostream& s) {
+        std::string str = R"s(
+Usage: fabricV [options]
+Available Options (all are optional):
+    -m <minecraft version> = Specify the Minecraft version. Defaults to latest release.
+    -p = Output an example mod gradle.properties snippet. Default: false
+    -b = Output a Gradle buildscript. Default: false
+    -l = Output a plain list of version numbers. Default: true
+    -v = Verbose output. Default: false
+    -c = Enable colors. Default: false
+
+All of the capital letter options just do the exact inverse of the normal options, i.e. specifying -L will cause the list to not show up.
+)s";
+        s << str << std::endl;
+    }
+
     ArgumentStructure get_arguments(const int argc, char** argv) {
         std::string mc_version;
         bool gradle_properties = false;
@@ -16,10 +32,14 @@ namespace cmdline {
 
         {
             int c;
-            while ((c = getopt(argc, argv, "m:pblvcPBLVC")) != EOF) {
+            while ((c = getopt(argc, argv, "hm:pblvcPBLVC?")) != EOF) {
                 if (verbose) std::cout << internal::internal::comment << "Parsing option " << c << internal::internal::reset << std::endl;
 
                 switch (c) {
+                    case '?':
+                    case 'h':
+                        show_help(std::cout);
+                        return ArgumentStructure::EMPTY;
                     case 'm':
                         mc_version = optarg;
                         break;

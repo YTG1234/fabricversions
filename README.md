@@ -31,7 +31,7 @@ The `m` option is the only one that receives a value - it is the Minecraft versi
     * Default: `false`
 * `l`: Show a list of versions without any code snippets
     * Default: `true`
-* `v`: Verbose output. It's a WIP.
+* `v`: Verbose output.
     * Default: `false`
 * `c`: Enable colors!
     * Default: `false`
