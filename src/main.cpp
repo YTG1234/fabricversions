@@ -30,8 +30,6 @@ int main(const int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    // TODO Verbose output
-
     if (strt.mc_version.empty()) {
         std::optional<std::string> version = mc::getLatestVersion(strt.verbose);
         if (version.has_value()) strt.mc_version = version.value();
