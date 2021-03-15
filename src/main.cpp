@@ -12,6 +12,7 @@
 #include <Colors/Colors.h>
 
 #include "ArgumentStructure.h"
+#include "CommandLineHelper.h"
 #include "MinecraftHelper.h"
 #include "FabricHelper.h"
 
@@ -23,10 +24,8 @@ using colors::Colors;
 
 static curlpp::Cleanup cleanup;
 
-ArgumentStructure getArgStructure(int agrc, char** argv);
-
-int main(int argc, char** argv) {
-    ArgumentStructure strt = getArgStructure(argc, argv);
+int main(const int argc, char** argv) {
+    ArgumentStructure strt = cmdline::get_arguments(argc, argv);
 
     if (strt.isEmpty()) {
         std::cerr << "Unable to parse options" << std::endl;
@@ -81,83 +80,4 @@ int main(int argc, char** argv) {
     }
 
     return EXIT_SUCCESS;
-}
-
-// From Stackoverflow
-std::string exec(const char* cmd) {
-    std::array<char, 128> buffer;
-    std::string result;
-    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
-    if (!pipe) return ""; // originally threw an exception but for my use case, returning an empty string is good enough
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-        result += buffer.data();
-    }
-    return result;
-}
-
-ArgumentStructure getArgStructure(int argc, char** argv) {
-    std::string mc_version;
-    bool gradle_properties = false;
-    bool build_gradle = false;
-    bool show_list = true;
-    bool verbose = false;
-    bool colors = true;
-
-    {
-        int c;
-        while ((c = getopt(argc, argv, "m:pblvcPBLVC")) != EOF) {
-            switch (c) {
-                case 'm':
-                    mc_version = optarg;
-                    break;
-                case 'p':
-                    gradle_properties = true;
-                    break;
-                case 'b':
-                    build_gradle = true;
-                    break;
-                case 'l':
-                    show_list = true;
-                    break;
-                case 'v':
-                    verbose = true;
-                    break;
-                case 'c':
-                    colors = true;
-                    break;
-                case 'P':
-                    gradle_properties = false;
-                    break;
-                case 'B':
-                    build_gradle = false;
-                    break;
-                case 'L':
-                    show_list = false;
-                    break;
-                case 'V':
-                    verbose = false;
-                    break;
-                case 'C':
-                    colors = false;
-                    break;
-                default:
-                    return ArgumentStructure::EMPTY;
-            }
-        }
-    }
-
-    do {
-        std::string res = exec("tput colors");
-        if (res.empty()) {
-            colors = false;
-            break;
-        }
-
-        int x;
-        std::stringstream(res) >> x;
-
-        if (x < 8) colors = false;
-    } while (false);
-    
-    return ArgumentStructure(mc_version, build_gradle, gradle_properties, show_list, verbose, colors);
 }

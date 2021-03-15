@@ -48,3 +48,9 @@ _deps
 ### KDevelop ###
 *.kdev*
 out/
+
+### VSC ###
+.vscode/
+
+## IDEA Family ###
+.idea/

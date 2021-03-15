@@ -28,7 +28,7 @@ The `m` option is the only one that receives a value - it is the Minecraft versi
 * `v`: Verbose output. It's a WIP.
     * Default: `false`
 * `c`: Enable colors!
-    * Default: According to your terminal
+    * Default: `false`
 
 As you might have guessed, the capital letter versions of these options just do the opposite! For instance, if you'd like to see the `build.gradle` but not the list, the options you will provide are `-Lb(m<minecraft version>)`.
 
