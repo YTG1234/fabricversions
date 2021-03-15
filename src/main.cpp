@@ -16,9 +16,6 @@
 #include "MinecraftHelper.h"
 #include "FabricHelper.h"
 
-#define PRINT(x) std::cout << x << std::endl;
-#define DO_IF(x, y, z) if (x && y) { z; }
-
 using colors::Color;
 using colors::Colors;
 
@@ -32,16 +29,12 @@ int main(const int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    DO_IF(strt.verbose, 1, PRINT("Verbose: " << strt.verbose))  
-    DO_IF(strt.verbose, !strt.mc_version.empty(), PRINT("Minecraft Version: " << strt.mc_version))
-    DO_IF(strt.verbose, 1, PRINT("gradle.properties: " << strt.gradle_properties << std::endl << "build.gradle: " << strt.build_gradle << std::endl << "Show Version List: " << strt.show_list))
+    // TODO Verbose output
 
     if (strt.mc_version.empty()) {
         std::optional<std::string> version = mc::getLatestVersion(strt.verbose);
         if (version.has_value()) strt.mc_version = version.value();
         else return EXIT_FAILURE;
-
-        DO_IF(strt.verbose, 1, PRINT("Minecraft version was not specified, using latest version " << strt.mc_version));
     }
 
     auto loader_ver = fabric::loader_ver_for_mc(strt.mc_version, strt.verbose).value();
@@ -55,28 +48,31 @@ int main(const int argc, char** argv) {
     auto boldwhite = colors ? !Color(Colors::white).attr(colors::Attr::bold) : "";
 
     if (strt.show_list) {
-        PRINT("Loader: " << loader_ver.version_number);
-        PRINT("Yarn: " << yarn_ver.version_number);
-        PRINT("API: " << api_ver.version_number << std::endl);
+        std::cout << "Loader: " << loader_ver.version_number << std::endl;
+        std::cout << "Yarn: " << yarn_ver.version_number << std::endl;
+        std::cout << "API: " << api_ver.version_number << std::endl << std::endl;
     } if (strt.build_gradle) {
-        PRINT(boldwhite << "In your build.gradle:" << reset);
+        std::cout << boldwhite << "In your build.gradle:" << reset << std::endl;
 
-        PRINT("dependencies {" << std::endl
-            << "\tminecraft(" << red << "\"com.mojang:minecraft:" << strt.mc_version << "\"" << reset << ")"
-        );
-        PRINT("\tmappings(" << red << "\"" << yarn_ver.maven_coords << "\"" << reset << ")");
-        PRINT("\tmodImplementation(" << red << "\"" << loader_ver.maven_coords << "\"" << reset << ")" << std::endl);
-        PRINT("\t" << (colors ? !Color(Colors::black).brighten() : "") << "// Fabric API" << reset);
-        PRINT("\tmodImplementation(" << red << "\"" << api_ver.maven_coords << "\"" << reset << ")");
-        PRINT("}" << std::endl);
+        std::cout
+            << "dependencies {" << std::endl
+            << "\tminecraft(" << red
+            << "\"com.mojang:minecraft:" << strt.mc_version
+            << "\"" << reset << ")"
+            << std::endl;
+        std::cout << "\tmappings(" << red << "\"" << yarn_ver.maven_coords << "\"" << reset << ")" << std::endl;
+        std::cout << "\tmodImplementation(" << red << "\"" << loader_ver.maven_coords << "\"" << reset << ")" << std::endl << std::endl;
+        std::cout << "\t" << (colors ? !Color(Colors::black).brighten() : "") << "// Fabric API" << reset << std::endl;
+        std::cout << "\tmodImplementation(" << red << "\"" << api_ver.maven_coords << "\"" << reset << ")" << std::endl;
+        std::cout << "}" << std::endl << std::endl;
     } if (strt.gradle_properties) {
-        PRINT(boldwhite << "In gradle.properties (example mod):" << reset);
+        std::cout << boldwhite << "In gradle.properties (example mod):" << reset << std::endl;
 
-        PRINT(gold << "minecaft_version" << reset << "=" << red << strt.mc_version << reset);
-        PRINT(gold << "yarn_mappings" << reset << "=" << red << yarn_ver.version_number << reset);
-        PRINT(gold << "loader_version" << reset << "=" << red << loader_ver.version_number << reset << std::endl);
-        PRINT((colors ? !Color(Colors::black).brighten() : "") << "# Fabric API" << reset);
-        PRINT(gold << "fabric_version" << reset << "=" << red << api_ver.version_number << reset << std::endl);
+        std::cout << gold << "minecaft_version" << reset << "=" << red << strt.mc_version << reset << std::endl;
+        std::cout << gold << "yarn_mappings" << reset << "=" << red << yarn_ver.version_number << reset << std::endl;
+        std::cout << gold << "loader_version" << reset << "=" << red << loader_ver.version_number << reset << std::endl << std::endl;
+        std::cout << (colors ? !Color(Colors::black).brighten() : "") << "# Fabric API" << reset << std::endl;
+        std::cout << gold << "fabric_version" << reset << "=" << red << api_ver.version_number << reset << std::endl << std::endl;
     }
 
     return EXIT_SUCCESS;
