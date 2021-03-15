@@ -12,6 +12,12 @@ $ ./build
 ```
 A compiled `fabricV` file should be created in a folder named `out`.
 
+### Does This Work on Linux?
+Honestly, I don't know. It works on my machine, but it may not work on yours.
+
+### Does This Work on macOS?
+Honestly, I don't know. I have a macOS machine to test with but I'm too lazy to test.
+
 ### Does This Work on Windows?
 Honestly, I don't know. I don't have a Windows installation to test this on. If this tool is broken on Windows and you'd like to fix it, just PR!
 
