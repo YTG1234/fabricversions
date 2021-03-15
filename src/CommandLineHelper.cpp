@@ -1,7 +1,9 @@
 #include <getopt.h>
 #include <curses.h>
+#include <iostream>
 
 #include "CommandLineHelper.h"
+#include "_internal.h"
 
 namespace cmdline {
     ArgumentStructure get_arguments(const int argc, char** argv) {
@@ -15,6 +17,8 @@ namespace cmdline {
         {
             int c;
             while ((c = getopt(argc, argv, "m:pblvcPBLVC")) != EOF) {
+                if (verbose) std::cout << internal::internal::comment << "Parsing option " << c << internal::internal::reset << std::endl;
+
                 switch (c) {
                     case 'm':
                         mc_version = optarg;
@@ -52,6 +56,18 @@ namespace cmdline {
                     default:
                         return ArgumentStructure::EMPTY;
                 }
+            }
+
+            internal::comment = colors ? !colors::Color(colors::Colors::black).brighten() : "";
+            internal::reset = colors ? !colors::Color::RESET : "";
+
+            if (verbose) {
+                std::cout << internal::comment << "MC: " << mc_version << internal::reset << std::endl;
+                std::cout << internal::comment << "gradle.properties: " << gradle_properties << internal::reset << std::endl;
+                std::cout << internal::comment << "build.gradle: " << build_gradle << internal::reset << std::endl;
+                std::cout << internal::comment << "List: " << show_list << internal::reset << std::endl;
+                std::cout << internal::comment << "Verbose: " << verbose << internal::reset << std::endl;
+                std::cout << internal::comment << "Colors: " << colors << internal::reset << std::endl;
             }
         }
 

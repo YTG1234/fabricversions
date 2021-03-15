@@ -11,12 +11,15 @@ namespace mc {
     using namespace _internal;
 
     std::optional<std::string> getLatestVersion(bool verbose) {
+        if (verbose) std::cout << internal::comment << "Fetching latest Minecraft version" << internal::reset << std::endl;
+
         std::optional<std::string> result = get_url(minecraft_manifest, verbose);
         if (!result.has_value()) return result;
         else return std::optional(json::parse(result.value())["latest"]["release"]);
     }
 
     std::optional<json> getVersion(const std::string& version_number, bool verbose) {
+        if (verbose) std::cout << internal::comment << "Fetching version info for " << version_number << internal::reset << std::endl;
         std::optional<std::string> urlResult = get_url(minecraft_manifest, verbose);
 
         if (!urlResult.has_value()) return urlResult;
@@ -28,6 +31,7 @@ namespace mc {
             return std::nullopt;
         }
 
+        if (verbose) std::cout << internal::comment << "Picking correct info from versions array" << internal::reset << std::endl;
         auto v = j["versions"].get<std::vector<json>>();
         for (json j2 : v) {
             if (j2["id"] == version_number) return j2;
@@ -35,5 +39,4 @@ namespace mc {
         
         return std::nullopt;
     }
-
 }

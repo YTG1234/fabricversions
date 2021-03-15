@@ -22,6 +22,8 @@ namespace fabric {
 
 
     std::optional<MavenStringPair> loader_ver_for_mc(const std::string& mc_ver, bool verbose) {
+        if (verbose) std::cout << internal::comment << "Fetching FLoader version for MC " << mc_ver << internal::reset << std::endl;
+
         std::optional<std::string> res = get_url(fabric_meta_host + "/versions/loader/" + mc_ver + "?limit=1", verbose);
         if (!res.has_value()) return std::nullopt;
 
@@ -30,6 +32,8 @@ namespace fabric {
     }
     
     std::optional<MavenStringPair> yarn_ver_for_mc(const std::string& mc_ver, bool verbose) {
+        if (verbose) std::cout << internal::comment << "Fetching Yarn version for MC " << mc_ver << internal::reset << std::endl;
+
         std::optional<std::string> res = get_url(fabric_meta_host + "/versions/yarn/" + mc_ver + "?limit=1", verbose);
         if (!res.has_value()) return std::nullopt;
 
@@ -38,6 +42,9 @@ namespace fabric {
     }
     
     std::optional<MavenStringPair> api_ver_for_mc(const std::string& mc_ver, bool verbose) {
+        if (verbose) std::cout << internal::comment << "Fetching FLoader version for MC " << mc_ver << internal::reset << std::endl;
+
+        if (verbose) std::cout << internal::comment << "Fetching asset index ID..." << internal::reset << std::endl;
         std::optional<std::string> res;
         {
             std::optional<json> jO = mc::getVersion(mc_ver, verbose);
@@ -48,9 +55,11 @@ namespace fabric {
         if (!res.has_value()) return std::nullopt;
         json j = json::parse(res.value());
         std::string assets = j["assets"];
-        
+        if (verbose) std::cout << internal::comment << "Asset index ID obtained, " << assets << internal::reset << std::endl;
+
         std::string latestVer;
-        
+
+        if (verbose) std::cout << internal::comment << "Fetching FabricMC Maven" << internal::reset << std::endl;
         std::optional<std::string> api_res = get_url(fabric_api_metadata, verbose);
         if (!api_res.has_value()) return std::nullopt;
         std::string api_meta = api_res.value();
@@ -61,6 +70,7 @@ namespace fabric {
             auto node = doc.first_node("metadata")->first_node("versioning")->first_node("versions");
 
             rapidxml::xml_node<>* child;
+            if (verbose) std::cout << internal::comment << "Iterating over versions" << internal::reset << std::endl;
             while ((child = node->first_node()) != 0) {
                 std::string ver = child->value();
                 if (ver.substr(ver.find("+") + 1, ver.length() - ver.find("+") - 1) == assets) latestVer = ver;
@@ -69,6 +79,7 @@ namespace fabric {
         }
 
         if (latestVer.empty()) return std::nullopt;
+        if (verbose) std::cout << internal::comment << "Latest FAPI version for MC " << mc_ver << " is " << latestVer << internal::reset << std::endl;
         return MavenStringPair("net.fabricmc.fabric-api:fabric-api:" + latestVer, latestVer);
     }
 }
