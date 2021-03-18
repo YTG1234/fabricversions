@@ -43,3 +43,6 @@ As you might have guessed, the capital letter versions of these options just do 
 * [json](https://github.com/nlohmann/json/tree/develop)
 * [libcolors](https://github.com/YTG1234/libcolors/tree/main)
 * [RapidXML](http://rapidxml.sourceforge.net/)
+
+## Will This be Ported to Rust?
+Yes, eventually.
