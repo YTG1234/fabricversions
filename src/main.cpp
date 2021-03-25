@@ -3,10 +3,6 @@
 #include <string>
 #include <sstream>
 
-#include <array>
-
-#include <getopt.h>
-
 #include <curlpp/cURLpp.hpp>
 
 #include <Colors/Colors.h>

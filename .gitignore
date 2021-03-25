@@ -54,3 +54,4 @@ out/
 
 ## IDEA Family ###
 .idea/
+cmake-build-*/
