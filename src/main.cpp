@@ -35,9 +35,9 @@ int main(const int argc, char** argv) {
     }
 
     if (strt.verbose) std::cout << internal::comment << "Getting all versions..." << internal::reset << std::endl;
-    auto loader_ver = std::async(fabric::loader_ver_for_mc, strt.mc_version, strt.verbose);
-    auto yarn_ver = std::async(fabric::yarn_ver_for_mc, strt.mc_version, strt.verbose);
-    auto api_ver = std::async(fabric::api_ver_for_mc, strt.mc_version, strt.verbose);
+    std::shared_future loader_ver(std::async(fabric::loader_ver_for_mc, strt.mc_version, strt.verbose));
+    std::shared_future yarn_ver(std::async(fabric::yarn_ver_for_mc, strt.mc_version, strt.verbose));
+    std::shared_future api_ver(std::async(fabric::api_ver_for_mc, strt.mc_version, strt.verbose));
 
     auto colors = strt.color;
     auto red = colors ? !Color(Colors::red).brighten() : "";
