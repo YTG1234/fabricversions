@@ -45,5 +45,6 @@ target_link_libraries(${PROJECT_NAME}
 	nlohmann_json
 	curlpp_static
 	colors
+	pthread
 )
 target_include_directories(${PROJECT_NAME} PRIVATE ${rapidxml_SOURCE_DIR} "${curlpp_SOURCE_DIR}/include" "${nlohmann_json_SOURCE_DIR}/single_include")
