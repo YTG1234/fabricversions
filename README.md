@@ -7,19 +7,21 @@ Compiled binaries are not available quite yet, however the build process is very
 ```shell
 $ git clone https://github.com/YTG1234/fabricversions
 $ cd fabricversions
-$ ./configure
-$ ./build
+$ ./scripts/configure
 ```
-A compiled `fabricV` file should be created in a folder named `out`.
+In order to build without installing, run `./scripts/build`. A compiled `fabricV` binary will be created in the `out` directory.  
+In order to install the program, run `./scripts/instal` **as root**. A compiled binary will be created and installed in `/usr/local/bin`.
+curlpp will also be built and installed.
+Additionally, a manual page (`fabricV(1)`) will be installed in `/usr/local/man/man1`.
 
 ### Does This Work on Linux?
 Honestly, I don't know. It works on my machine, but it may not work on yours.
 
 ### Does This Work on macOS?
-Yes.
+Honestly, I don't know. I will try it soon and put the results here.
 
 ### Does This Work on Windows?
-Honestly, I don't know. I don't have a Windows installation to test this on. If this tool is broken on Windows and you'd like to fix it, just PR!
+Probably not.
 
 ## Usage
 There are multiple command-line options available. They are: `m`, `p`, `b`, `l`, `v`, `c`, `P`, `B`, `L`, `V`, and `C`.  
