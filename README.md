@@ -4,15 +4,17 @@ A simple command-line tool that can fetch the latest FabricMC versions for any g
 ## Download?!
 Compiled binaries are not available quite yet, however the build process is very straightforward.
 
+- Download and install CMake
+- Run the following commands
 ```shell
 $ git clone https://github.com/YTG1234/fabricversions
 $ cd fabricversions
 $ ./scripts/configure
 ```
-In order to build without installing, run `./scripts/build`. A compiled `fabricV` binary will be created in the `out` directory.  
-In order to install the program, run `./scripts/instal` **as root**. A compiled binary will be created and installed in `/usr/local/bin`.
+- In order to build without installing, run `./scripts/build`. A compiled `fabricV` binary will be created in the `out` directory.
+- In order to install the program, run `./scripts/install` **as root**. A compiled binary will be created and installed in `/usr/local/bin`.
 curlpp will also be built and installed.
-Additionally, a manual page (`fabricV(1)`) will be installed in `/usr/local/man/man1`.
+Additionally, a manual page (`fabricV(1)`) will be installed in `/usr/local/share/man/man1`.
 
 ### Does This Work on Linux?
 Honestly, I don't know. It works on my machine, but it may not work on yours.
