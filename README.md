@@ -20,7 +20,7 @@ Additionally, a manual page (`fabricV(1)`) will be installed in `/usr/local/shar
 Honestly, I don't know. It works on my machine, but it may not work on yours.
 
 ### Does This Work on macOS?
-Honestly, I don't know. I will try it soon and put the results here.
+Yes.
 
 ### Does This Work on Windows?
 Probably not.
