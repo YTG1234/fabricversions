@@ -1,0 +1,4 @@
+#!/bin/sh
+mkdir -p "$(dirname "$0")/../out"
+cd "$(dirname "$0")/../out" || exit
+cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=release

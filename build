@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-cd out || exit
-make
