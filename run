@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 cd out
 if [ -z "$1" ]; then
-    ./fabricV
+    ./fabricV -l
 else
 	./fabricV $@
 fi
