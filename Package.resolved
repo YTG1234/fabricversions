@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "CombineX",
+        "repositoryURL": "https://github.com/cx-org/CombineX",
+        "state": {
+          "branch": null,
+          "revision": "b9afefe14653f02a80a9f5aa546859e99073d0c8",
+          "version": "0.3.1"
+        }
+      },
+      {
         "package": "swift-argument-parser",
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
