@@ -1,0 +1,82 @@
+.TH FABRICVERSIONS 1 2021-04-10 FABRICVERSIONS
+
+.SH NAME
+fabricversions \- fetch FabricMC versions
+
+.SH SYNOPSIS
+.B fabricversions
+[\fB\-p\fR]
+[\fB\--properties\fR]
+[\fB\-b\fR]
+[\fB\--buildscript\fR]
+[\fB\-m\fR \fIversion\fR]
+[\fB\--minecraft-version\fR \fIversion\fR]
+[\fB\-l\fR]
+[\fB\--list\fR]
+[\fB\-v\fR]
+[\fB\--verbose\fR]
+[\fB\-c\fR]
+[\fB\--colors\fR]
+[\fB\--no-properties\fR]
+[\fB\--no-buildscript\fR]
+[\fB\--no-list\fR]
+[\fB\--no-verbose\fR]
+[\fB\--no-colors\fR]
+[\fB\-h\fR]
+[\fB\--help\fR]
+
+.SH DESCRIPTION
+.B fabricversions
+fetches Fabric Loader, Fabric API, and Yarn versions for a specified Minecraft version.
+
+.SH OPTIONS
+
+.TP
+.BR \-p ", " \-\-properties/\-\-no\-properties
+output an example mod gradle.properties snippet
+
+.TP
+.BR \-b ", " \-\-buildscript/\-\-no\-buildscript
+output a Gradle buildscript snippet
+
+.TP
+.BR \-m ", " \-\-minecraft-verion " " \fIversion
+select the Minecraft version
+
+.TP
+.BR \-l ", " \-\-list/\-\-no\-list
+output a plain list of version numbers
+
+.TP
+.BR \-v ", " \-\-verbose/\-\-no\-verbose
+verbose output
+
+.TP
+.BR \-c ", " \-\-colors/\-\-no\-colors
+ANSI-colored output
+
+.TP
+.BR \-h ", " \-\-help
+show help information
+
+
+By default, \fBfabricversions\fR fetches the latest Minecraft version and shows a plain, uncolored list of version numbers (no verbose).
+
+.SH EXAMPLES
+.TP
+fabricversions -cvm 1.16.2
+Enable verbose output, enable colored output and output a list of FabricMC versions for Minecraft 1.16.2.
+
+.TP
+fabricversions -cpb
+Output a version list, Gradle buildscript and a gradle.properties snippet for the latest Minecraft version, all colored.
+
+.TP
+fabricversions --no-list -pm 20w45a
+Output a gradle.properties snippet for Minecraft 20w45a.
+
+.SH AUTHOR
+YTG123 <54103478+YTG1234@users.noreply.github.com>
+
+.SH "REPORTING BUGS"
+You can report bugs at GitHub: <https://github.com/YTG1234/fabricversions/issues>
