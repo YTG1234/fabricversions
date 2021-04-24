@@ -1,4 +1,5 @@
 import Foundation
+import FoundationNetworking
 
 public typealias JsonObject = [String: Any]
 public typealias JsonArray = [Any]
@@ -16,6 +17,28 @@ public enum VersionError: Error {
 
 public func toJson<T>(_ any: Any) throws -> T {
   return any as! T
+}
+
+public func sendRequest(target: URL) -> Result<Data, Error> {
+  let semaphore = DispatchSemaphore(value: 0)
+  var result: Data = Data()
+  var errorW: Error? = nil
+
+  let task = URLSession.shared.dataTask(with: target) {(data, response, error) in
+    guard let data = data else {
+      errorW = error!
+      return
+    }
+
+    result = data
+    semaphore.signal()
+  }
+
+  task.resume()
+  semaphore.wait()
+
+  if errorW != nil { return .failure(errorW!) }
+  return .success(result)
 }
 
 public extension Data {

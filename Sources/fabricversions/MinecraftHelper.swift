@@ -20,29 +20,14 @@ public struct VersionManifest : Decodable {
 }
 
 fileprivate func getVersionManifest() -> Result<VersionManifest, Error> {
-  let semaphore = DispatchSemaphore(value: 0)
-  var result: Data = Data()
-  var errorW: Error? = nil
-
-  let task = URLSession.shared.dataTask(with: target) {(data, response, error) in
-    guard let data = data else {
-      errorW = error!
-      return
+  switch sendRequest(target: target) {
+    case .failure(let error): return .failure(error)
+    case .success(let data): do {
+      let manifest = try decoder.decode(VersionManifest.self, from: data)
+      return .success(manifest)
+    } catch {
+      return .failure(error)
     }
-
-    result = data
-    semaphore.signal()
-  }
-
-  task.resume()
-  semaphore.wait()
-
-  if errorW != nil { return .failure(errorW!) }
-  do {
-    let manifest = try decoder.decode(VersionManifest.self, from: result)
-    return .success(manifest)
-  } catch {
-    return .failure(error)
   }
 }
 
