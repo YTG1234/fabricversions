@@ -4,7 +4,7 @@ A simple command-line tool that can fetch the latest FabricMC versions for any g
 ## Download?!
 Compiled binaries are not available quite yet~~, however the build process is very straightforward.~~
 
-- Download and install the latest Swift toolchain (Arch users: Use [swift-bin](https://aur.archlinux.org/packages/swift-bin)<sup>AUR</sup>. Ubuntu and RHEL based users: Download from the official site).
+- Download and install the latest [Swift toolchain](https://swift.org/download) (Arch users: Use [swift-bin](https://aur.archlinux.org/packages/swift-bin)<sup>AUR</sup>. Ubuntu and RHEL based users: Download from the official site).
 - Run the following commands
 ```shell
 $ git clone https://github.com/YTG1234/fabricversions
