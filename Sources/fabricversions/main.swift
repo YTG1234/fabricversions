@@ -29,6 +29,8 @@ struct FabricVersions: ParsableCommand {
       getLatestVersion() :
       Future { $0(.success(mcVer!)) }
     ).flatMap { version in
+      getVersion(number: version)
+    }.flatMap { version in
       Future<(), Never> {
         print(version)
         $0(.success(()))
