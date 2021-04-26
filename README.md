@@ -17,10 +17,10 @@ $ swift build -c release
 Honestly, I don't know. It works on my machine, but it may not work on yours.
 
 ### Does This Work on macOS?
-Yes.
+I don't know. I will test soon and update here.
 
 ### Does This Work on Windows?
-Probably not.
+I don't know.
 
 ## Usage
 <details>
@@ -43,3 +43,8 @@ The `m` option is the only one that receives a value - it is the Minecraft versi
 As you might have guessed, the capital letter versions of these options just do the opposite! For instance, if you'd like to see the `build.gradle` but not the list, the options you will provide are `-Lb(m<minecraft version>)`.
 
 </details>
+
+## Libraries This Uses
+- [Argument Parser](https://github.com/apple/swift-argument-parser)
+- [SwiftyXMLParser](https://github.com/yahoojapan/SwiftyXMLParser)
+

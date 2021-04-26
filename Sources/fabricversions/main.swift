@@ -23,6 +23,9 @@ public struct FabricVersions: ParsableCommand {
   @Flag(name: .shortAndLong, inversion: .prefixedNo, help: "ANSI-colored output")
   var colors = false
 
+  @Flag(name: .long, help: "Don't show the Fabric API version. This option is here because this takes the longest to fetch.")
+  var noApi = false
+
   public init() {}
  
   public mutating func run() throws {
@@ -69,6 +72,11 @@ public struct FabricVersions: ParsableCommand {
     }
 
     let aV = AsyncGroupOptionalHolder<MavenStringPair> { (grp, ctx) in
+      if noApi {
+        grp.leave()
+        return
+      }
+
       DispatchQueue.global().async {
         switch apiVersionForMinecraft(mcVersion: mV!) {
           case .success(let version): ctx.set(version)
@@ -88,7 +96,7 @@ public struct FabricVersions: ParsableCommand {
       print("""
       Fabric Loader: \(lV.value.versionNumber)
       Yarn Mappings: \(yV.value.versionNumber)
-      Fabric API: \(aV.value.versionNumber)
+      \(!noApi ? "Fabric API: \(aV.value.versionNumber)" : "")
       """)
 
       printed = true
@@ -105,8 +113,10 @@ public struct FabricVersions: ParsableCommand {
           mappings(\(stringColor.paint(yV.value.mavenCoords, if: colors)))
           modImplementation(\(stringColor.paint(lV.value.mavenCoords, if: colors)))
 
+          \(!noApi ? """
           \(Color(.black).brighten().paint("// Fabric API", if: colors))
           modImplementation(\(stringColor.paint(aV.value.mavenCoords, if: colors)))
+          """ : "")
       }
       """)
 
@@ -124,8 +134,10 @@ public struct FabricVersions: ParsableCommand {
       \(keyColor.paint("yarn_mappings", if: colors))=\(stringColor.paint(yV.value.versionNumber, if: colors))
       \(keyColor.paint("loader_version", if: colors))=\(stringColor.paint(lV.value.versionNumber, if: colors))
 
+      \(!noApi ? """
       \(Color(.black).brighten().paint("# Fabric API", if: colors))
       \(keyColor.paint("fabric_version", if: colors))=\(stringColor.paint(aV.value.versionNumber, if: colors))
+      """ : "")
       """)
 
       printed = true
