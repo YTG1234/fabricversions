@@ -35,28 +35,28 @@ fabricversions [-p] [--properties] [-b] [--buildscript] [-m version] [--minecraf
 
 ### Options
 
-* **-p**, **--properties** / **--no-properties**
+* **-p**, **--properties** / **--no-properties**  
   output an example mod gradle.properties snippet
   
-* **-b**, **--buildscript** / **--no-buildscript**
+* **-b**, **--buildscript** / **--no-buildscript**  
   output a Gradle buildscript snippet
   
-* **-m**, **--minecraft-version** <ins>version</ins>
+* **-m**, **--minecraft-version** <ins>version</ins>  
   select the Minecraft version
   
-* **-l**, **--list** / **--no-list**
+* **-l**, **--list** / **--no-list**  
   output a plain list of version numbers
   
-* **-v**, **--verbose** / **--no-verbose**
+* **-v**, **--verbose** / **--no-verbose**  
   verbose output
   
-* **-c**, **--colors** / **--no-colors**
+* **-c**, **--colors** / **--no-colors**  
   ANSI-colored output
   
-* **--no-api**
+* **--no-api**  
   don't show the Fabric API version. This option is here because this takes the longest to fetch
   
-* **-h**, **--help**
+* **-h**, **--help**  
   show help information
 
 By default, **fabricversions** fetches the latest Minecraft version and shows a plain, uncolored list of version numbers (no verbose).
