@@ -47,7 +47,7 @@ I don't know.
 ### Synopsis
 
 ```
-fabricversions [-p] [--properties] [-b] [--buildscript] [-m version] [--minecraft-version __version__] [-l] [--list] [-v] [--verbose] [-c] [--colors] [--no-properties] [--no-buildscript] [--no-list] [--no-verbose] [--no-colors] [--no-api] [-h] [--help]
+fabricversions [-p] [--properties] [-b] [--buildscript] [-m version] [--minecraft-version version] [-l] [--list] [-v] [--verbose] [-c] [--colors] [--no-properties] [--no-buildscript] [--no-list] [--no-verbose] [--no-colors] [--no-api] [-h] [--help]
 ```
 
 
