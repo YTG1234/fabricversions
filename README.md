@@ -11,9 +11,14 @@ A `.deb` package is coming soon.
 ### RHEL/SUSE
 A `.rpm` package is coming soon.
 
-### Other Linux Distributions or macOS
-- Download and install the latest [Swift toolchain](https://swift.org/download) (Arch users: Use [swift-bin](https://aur.archlinux.org/packages/swift-bin)<sup>AUR</sup>. Ubuntu and RHEL based users: Download from the official site).
-- Run the following commands
+### Building From Source
+- Download and install the latest  
+Arch users: Use [swift-bin](https://aur.archlinux.org/packages/swift-bin)<sup>AUR</sup>.  
+Debian and RHEL based users: Download from the [official site](https://swift.org/download).  
+macOS users: Install Xcode because for some reason the Swift package manager doesn't work without Xcode installed.  
+Other OSs: Figure it out.
+
+- Run the following commands (requires a Make implementation such as GNU Make)
 ```shell
 $ git clone https://github.com/YTG1234/fabricversions
 $ cd fabricversions
@@ -21,7 +26,7 @@ $ make
 ```
 - A compiled `fabricversions` binary will be created in the `.build/release` directory, as well as a compressed man page in the `man` directory.
 
-In order to install the tool, run
+- In order to install the tool, run
 ```shell
 $ sudo make install
 ```
