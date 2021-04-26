@@ -2,16 +2,31 @@
 A simple command-line tool that can fetch the latest FabricMC versions for any given Minecraft version (as long as it exists and is supported by Fabric Meta).
 
 ## Download?!
-Compiled binaries are not available quite yet, ~~however the build process is very straightforward.~~
+### Arch Linux
+Download the latest release `.pkg.tar.zst` from the releases page and install it using `pacman -U`.
 
+### Debian
+A `.deb` package is coming soon.
+
+### RHEL/SUSE
+A `.rpm` package is coming soon.
+
+### Other Linux Distributions or macOS
 - Download and install the latest [Swift toolchain](https://swift.org/download) (Arch users: Use [swift-bin](https://aur.archlinux.org/packages/swift-bin)<sup>AUR</sup>. Ubuntu and RHEL based users: Download from the official site).
 - Run the following commands
 ```shell
 $ git clone https://github.com/YTG1234/fabricversions
 $ cd fabricversions
-$ swift build -c release
+$ make
 ```
-- A compiled `fabricversions` binary will be created in the `.build/release` directory.
+- A compiled `fabricversions` binary will be created in the `.build/release` directory, as well as a compressed man page in the `man` directory.
+
+In order to install the tool, run
+```shell
+$ sudo make install
+```
+You can of course use `doas` or any other similar program.  
+To uninstall, run the same command but replace `install` with `uninstall`.
 
 ### Does This Work on Linux?
 Honestly, I don't know. It works on my machine, but it may not work on yours.
