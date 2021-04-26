@@ -40,14 +40,6 @@ public struct FabricVersions: ParsableCommand {
       }
     }
 
-    // var loaderVersion: MavenStringPair? = nil
-    // var yarnVersion: MavenStringPair? = nil
-    // var apiVersion: MavenStringPair? = nil
-
-    // let lGrp = DispatchGroup()
-    // let yGrp = DispatchGroup()
-    // let aGrp = DispatchGroup()
-
     let lV = AsyncGroupOptionalHolder<MavenStringPair> { (grp, ctx) in
       DispatchQueue.global().async {
         switch loaderVersionForMinecraft(mcVersion: mV!) {
@@ -90,49 +82,26 @@ public struct FabricVersions: ParsableCommand {
       }
     }
 
-    // lGrp.enter()
-    // yGrp.enter()
-    // aGrp.enter()
+    if list {
+      print("""
+      Fabric Loader: \(lV.value.versionNumber)
+      Yarn Mappings: \(yV.value.versionNumber)
+      Fabric API: \(aV.value.versionNumber)
+      """)
+    }
+    if buildscript {
+      print("""
+      \(Color(.none).attr(.bold).paint("In your Gradle buildscript:", if: colors))
 
-    // DispatchQueue.global().async {
-    //   switch loaderVersionForMinecraft(mcVersion: mV!) {
-    //     case .success(let version): loaderVersion = version
-    //     case .failure(let error): {
-    //       print("Failed to fetch the latest Loader version")
-    //       print(error)
-    //       exitWithErrorStatus()
-    //     }()
-    //   }
-    //   lGrp.leave()
-    // }
+      dependencies {
+        minecraft()
+        modImplementation()
 
-    // DispatchQueue.global().async {
-    //   switch yarnVersionForMinecraft(mcVersion: mV!) {
-    //     case .success(let version): yarnVersion = version
-    //     case .failure(let error): {
-    //       print("Failed to fetch the latest Yarn version")
-    //       print(error)
-    //       exitWithErrorStatus()
-    //     }()
-    //   }
-    //   yGrp.leave()
-    // }
-
-    // DispatchQueue.global().async {
-    //   switch apiVersionForMinecraft(mcVersion: mV!) {
-    //     case .success(let version): apiVersion = version
-    //     case .failure(let error): {
-    //       print("Failed to fetch the latest FAPI version")
-    //       print(error)
-    //       exitWithErrorStatus()
-    //     }()
-    //   }
-    //   aGrp.leave()
-    // }
-
-    print(lV.value)
-    print(yV.value)
-    print(aV.value)
+        \(Color(.black).brighten().paint("// Fabric API", if: colors))
+        modImplementation()
+      }
+      """)
+    }
   }
 }
 

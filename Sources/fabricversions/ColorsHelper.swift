@@ -114,8 +114,8 @@ public struct ColorRepresentation { // Gotta use those value types
     return attr(.reset)
   }
 
-  public func paint(text: String) -> String {
-    return !self + text + !.RESET
+  public func paint(_ text: String, if condition: Bool = true) -> String {
+    return (condition ? !self : "") + text + (condition ? !.RESET : "")
   }
 
   fileprivate func toString() -> String {
