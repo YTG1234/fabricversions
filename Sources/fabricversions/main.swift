@@ -1,8 +1,10 @@
 import Foundation
 import ArgumentParser
-import CombineX
 
-struct FabricVersions: ParsableCommand {
+// This is very procedural of me
+public var options: FabricVersions? = nil
+
+public struct FabricVersions: ParsableCommand {
   @Flag(name: .shortAndLong, inversion: .prefixedNo, help: "Output an example mod gradle.properties snippet")
   var properties = false
   
@@ -20,33 +22,122 @@ struct FabricVersions: ParsableCommand {
   
   @Flag(name: .shortAndLong, inversion: .prefixedNo, help: "ANSI-colored output")
   var colors = false
+
+  public init() {}
  
-  mutating func run() throws {
-    let mcVer = minecraftVersion
+  public mutating func run() throws {
+    options = self
+    var mV = minecraftVersion
 
-    let _ = (
-      mcVer == nil ?
-      getLatestVersion() :
-      Future { $0(.success(mcVer!)) }
-    ).flatMap { version in
-      getVersion(number: version)
-    }.flatMap { version in
-      Future<(), Never> {
-        print(version)
-        $0(.success(()))
-      }
-    }.sink { completion in
-      switch completion {
+    if mV == nil {
+      switch getLatestVersion() {
+        case .success(let data): mV = data
         case .failure(let error): {
-          print("Error occured")
+          print("Failed to fetch the latest Minecraft version")
           print(error)
+          exitWithErrorStatus()
         }()
-        case .finished: ()
       }
-    } receiveValue: {}
+    }
 
-    // more futures
+    // var loaderVersion: MavenStringPair? = nil
+    // var yarnVersion: MavenStringPair? = nil
+    // var apiVersion: MavenStringPair? = nil
+
+    // let lGrp = DispatchGroup()
+    // let yGrp = DispatchGroup()
+    // let aGrp = DispatchGroup()
+
+    let lV = AsyncGroupOptionalHolder<MavenStringPair> { (grp, ctx) in
+      DispatchQueue.global().async {
+        switch loaderVersionForMinecraft(mcVersion: mV!) {
+          case .success(let version): ctx.set(version)
+          case .failure(let error): {
+            print("Failed to fetch the latest Loader version")
+            print(error)
+            exitWithErrorStatus()
+          }()
+        }
+        grp.leave()
+      }
+    }
+
+    let yV = AsyncGroupOptionalHolder<MavenStringPair> { (grp, ctx) in
+      DispatchQueue.global().async {
+        switch yarnVersionForMinecraft(mcVersion: mV!) {
+          case .success(let version): ctx.set(version)
+          case .failure(let error): {
+            print("Failed to fetch the latest Yarn version")
+            print(error)
+            exitWithErrorStatus()
+          }()
+        }
+        grp.leave()
+      }
+    }
+
+    let aV = AsyncGroupOptionalHolder<MavenStringPair> { (grp, ctx) in
+      DispatchQueue.global().async {
+        switch apiVersionForMinecraft(mcVersion: mV!) {
+          case .success(let version): ctx.set(version)
+          case .failure(let error): {
+            print("Failed to fetch the latest FAPI version")
+            print(error)
+            exitWithErrorStatus()
+          }()
+        }
+        grp.leave()
+      }
+    }
+
+    // lGrp.enter()
+    // yGrp.enter()
+    // aGrp.enter()
+
+    // DispatchQueue.global().async {
+    //   switch loaderVersionForMinecraft(mcVersion: mV!) {
+    //     case .success(let version): loaderVersion = version
+    //     case .failure(let error): {
+    //       print("Failed to fetch the latest Loader version")
+    //       print(error)
+    //       exitWithErrorStatus()
+    //     }()
+    //   }
+    //   lGrp.leave()
+    // }
+
+    // DispatchQueue.global().async {
+    //   switch yarnVersionForMinecraft(mcVersion: mV!) {
+    //     case .success(let version): yarnVersion = version
+    //     case .failure(let error): {
+    //       print("Failed to fetch the latest Yarn version")
+    //       print(error)
+    //       exitWithErrorStatus()
+    //     }()
+    //   }
+    //   yGrp.leave()
+    // }
+
+    // DispatchQueue.global().async {
+    //   switch apiVersionForMinecraft(mcVersion: mV!) {
+    //     case .success(let version): apiVersion = version
+    //     case .failure(let error): {
+    //       print("Failed to fetch the latest FAPI version")
+    //       print(error)
+    //       exitWithErrorStatus()
+    //     }()
+    //   }
+    //   aGrp.leave()
+    // }
+
+    print(lV.value)
+    print(yV.value)
+    print(aV.value)
   }
+}
+
+fileprivate func exitWithErrorStatus() {
+  exit(1)
 }
 
 FabricVersions.main()
