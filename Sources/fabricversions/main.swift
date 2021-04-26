@@ -82,25 +82,53 @@ public struct FabricVersions: ParsableCommand {
       }
     }
 
+    var printed = false
+
     if list {
       print("""
       Fabric Loader: \(lV.value.versionNumber)
       Yarn Mappings: \(yV.value.versionNumber)
       Fabric API: \(aV.value.versionNumber)
       """)
+
+      printed = true
     }
+
     if buildscript {
+      let stringColor = Color(.red).brighten()
+
+      if printed { print() }
       print("""
       \(Color(.none).attr(.bold).paint("In your Gradle buildscript:", if: colors))
-
       dependencies {
-        minecraft()
-        modImplementation()
+          minecraft(\(stringColor.paint("\"com.mojang:minecraft:\(mV!)\"", if: colors)))
+          mappings(\(stringColor.paint(yV.value.mavenCoords, if: colors)))
+          modImplementation(\(stringColor.paint(lV.value.mavenCoords, if: colors)))
 
-        \(Color(.black).brighten().paint("// Fabric API", if: colors))
-        modImplementation()
+          \(Color(.black).brighten().paint("// Fabric API", if: colors))
+          modImplementation(\(stringColor.paint(aV.value.mavenCoords, if: colors)))
       }
       """)
+
+      printed = true
+    }
+
+    if properties {
+      let keyColor = Color(.yellow)
+      let stringColor = Color(.red).brighten()
+
+      if printed { print() }
+      print("""
+      \(Color(.none).attr(.bold).paint("In gradle.properties (example mod):", if: colors))
+      \(keyColor.paint("minecraft_version", if: colors))=\(stringColor.paint(mV!, if: colors))
+      \(keyColor.paint("yarn_mappings", if: colors))=\(stringColor.paint(yV.value.versionNumber, if: colors))
+      \(keyColor.paint("loader_version", if: colors))=\(stringColor.paint(lV.value.versionNumber, if: colors))
+
+      \(Color(.black).brighten().paint("# Fabric API", if: colors))
+      \(keyColor.paint("fabric_version", if: colors))=\(stringColor.paint(aV.value.versionNumber, if: colors))
+      """)
+
+      printed = true
     }
   }
 }
