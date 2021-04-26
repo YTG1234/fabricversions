@@ -27,7 +27,7 @@ I don't know.
 ### Synopsis
 
 ```
-fabricversions [-p] [--properties] [-b] [--buildscript] [-m __version__] [--minecraft-version __version__] [-l] [--list] [-v] [--verbose] [-c] [--colors] [--no-properties] [--no-buildscript] [--no-list] [--no-verbose] [--no-colors] [--no-api] [-h] [--help]
+fabricversions [-p] [--properties] [-b] [--buildscript] [-m version] [--minecraft-version __version__] [-l] [--list] [-v] [--verbose] [-c] [--colors] [--no-properties] [--no-buildscript] [--no-list] [--no-verbose] [--no-colors] [--no-api] [-h] [--help]
 ```
 
 
@@ -41,7 +41,7 @@ fabricversions [-p] [--properties] [-b] [--buildscript] [-m __version__] [--mine
 * **-b**, **--buildscript** / **--no-buildscript**
   output a Gradle buildscript snippet
   
-* **-m**, **--minecraft-version** _version_
+* **-m**, **--minecraft-version** <ins>version</ins>
   select the Minecraft version
   
 * **-l**, **--list** / **--no-list**
