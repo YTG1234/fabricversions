@@ -65,7 +65,7 @@ By default, **fabricversions** fetches the latest Minecraft version and shows a 
 
 ### Examples
 
-- fabricversions -cvm 1.16.2
+- fabricversions -cvm 1.16.2  
 Enable verbose output, enable colored output and output a list of FabricMC versions for Minecraft 1.16.2.
   
 - fabricversions -cpb  
