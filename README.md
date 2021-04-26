@@ -26,29 +26,31 @@ I don't know.
 
 ### Synopsis
 
-fabricversions \[-p\] \[--properties\] \[-b\] \[--buildscript\] \[-m __version__\] \[--minecraft-version __version__\] \[-l] \[--list\] \[-v\] \[--verbose\] \[-c\] \[--colors\] \[--no-properties\] \[--no-buildscript\] \[--no-list\] \[--no-verbose\] \[--no-colors\] \[--no-api\] \[-h\] \[--help\]
+```
+fabricversions [-p] [--properties] [-b] [--buildscript] [-m __version__] [--minecraft-version __version__] [-l] [--list] [-v] [--verbose] [-c] [--colors] [--no-properties] [--no-buildscript] [--no-list] [--no-verbose] [--no-colors] [--no-api] [-h] [--help]
+```
 
 
 <a name="options"></a>
 
 ### Options
 
-* **-p**, **--properties**/**--no-properties**
+* **-p**, **--properties** / **--no-properties**
   output an example mod gradle.properties snippet
   
-* **-b**, **--buildscript**/**--no-buildscript**
+* **-b**, **--buildscript** / **--no-buildscript**
   output a Gradle buildscript snippet
   
-* **-m**, **--minecraft-verion** __version__
+* **-m**, **--minecraft-version** _version_
   select the Minecraft version
   
-* **-l**, **--list**/**--no-list**
+* **-l**, **--list** / **--no-list**
   output a plain list of version numbers
   
-* **-v**, **--verbose**/**--no-verbose**
+* **-v**, **--verbose** / **--no-verbose**
   verbose output
   
-* **-c**, **--colors**/**--no-colors**
+* **-c**, **--colors** / **--no-colors**
   ANSI-colored output
   
 * **--no-api**
