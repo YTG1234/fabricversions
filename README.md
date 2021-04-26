@@ -26,54 +26,51 @@ I don't know.
 
 ### Synopsis
 
-```
-fabricversions [-p] [--properties] [-b] [--buildscript] [-m version] [--minecraft-version version] [-l] [--list] [-v] [--verbose] [-c] [--colors] [--no-properties] [--no-buildscript] [--no-list] [--no-verbose] [--no-colors] [--no-api] [-h] [--help]
-```
+fabricversions \[-p\] \[--properties\] \[-b\] \[--buildscript\] \[-m __version__\] \[--minecraft-version __version__\] \[-l] \[--list\] \[-v\] \[--verbose\] \[-c\] \[--colors\] \[--no-properties\] \[--no-buildscript\] \[--no-list\] \[--no-verbose\] \[--no-colors\] \[--no-api\] \[-h\] \[--help\]
+
 
 <a name="options"></a>
 
 ### Options
 
-* **-p**, **--properties/--no-properties**  
+* **-p**, **--properties**/**--no-properties**
   output an example mod gradle.properties snippet
   
-* **-b**, **--buildscript/--no-buildscript**  
+* **-b**, **--buildscript**/**--no-buildscript**
   output a Gradle buildscript snippet
   
-* **-m**, **--minecraft-verion** **version**  
+* **-m**, **--minecraft-verion** __version__
   select the Minecraft version
   
-* **-l**, **--list/--no-list**  
+* **-l**, **--list**/**--no-list**
   output a plain list of version numbers
   
-* **-v**, **--verbose/--no-verbose**  
+* **-v**, **--verbose**/**--no-verbose**
   verbose output
   
-* **-c**, **--colors/--no-colors**  
+* **-c**, **--colors**/**--no-colors**
   ANSI-colored output
   
-* **--no-api**  
+* **--no-api**
   don't show the Fabric API version. This option is here because this takes the longest to fetch
   
-* **-h**, **--help**  
+* **-h**, **--help**
   show help information
-  
-  
-  By default, **fabricversions** fetches the latest Minecraft version and shows a plain, uncolored list of version numbers (no verbose).
-  
 
+By default, **fabricversions** fetches the latest Minecraft version and shows a plain, uncolored list of version numbers (no verbose).
+  
 <a name="examples"></a>
 
 ### Examples
 
-* fabricversions -cvm 1.16.2  
-  Enable verbose output, enable colored output and output a list of FabricMC versions for Minecraft 1.16.2.
+- fabricversions -cvm 1.16.2
+Enable verbose output, enable colored output and output a list of FabricMC versions for Minecraft 1.16.2.
   
-* fabricversions -cpb  
-  Output a version list, Gradle buildscript and a gradle.properties snippet for the latest Minecraft version, all colored.
+- fabricversions -cpb  
+Output a version list, Gradle buildscript and a gradle.properties snippet for the latest Minecraft version, all colored.
   
-* fabricversions --no-list -pm 20w45a  
-  Output a gradle.properties snippet for Minecraft 20w45a.
+- fabricversions --no-list -pm 20w45a  
+Output a gradle.properties snippet for Minecraft 20w45a.
 
 ## Libraries This Uses
 - [Argument Parser](https://github.com/apple/swift-argument-parser)
