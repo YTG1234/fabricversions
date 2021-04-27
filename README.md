@@ -5,13 +5,13 @@ A simple command-line tool that can fetch the latest FabricMC versions for any g
 ### Arch Linux
 Download the latest release `.pkg.tar.zst` from the releases page and install it using `pacman -U`.  
 Alternatively, import my PGP key and install `fabricversions` from the AUR (also requires installing `swift-bin` or `swift-language`):
-```shell
+```
 # pacman-key -r 4B81184A270A28B5
 # pacman-key --lsign-key 4B81184A270A28B5
 ```
 You might also need to import the key manually, using `gpg`. Do that if you need to.
 
-```shell
+```
 $ git clone https://aur.archlinux.org/swift-bin.git
 $ cd swift-bin
 $ makepkg -si
