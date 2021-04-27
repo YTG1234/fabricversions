@@ -1,7 +1,13 @@
 all: fabricversions
 
-fabricversions:
+fabricversions: gzipman
+ifeq ($(NOSTATIC),1)
+	swift build -c release
+else
 	swift build -c release -Xswiftc -static-stdlib
+endif
+
+gzipman:
 	gzip -kf man/fabricversions.1
 
 clean:

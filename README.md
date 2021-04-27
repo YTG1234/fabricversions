@@ -24,6 +24,7 @@ $ git clone https://github.com/YTG1234/fabricversions
 $ cd fabricversions
 $ make
 ```
+- In case `make` produces an error, try running `make NOSTATIC=1`. You will then need to keep Swift installed to use the software.
 - A compiled `fabricversions` binary will be created in the `.build/release` directory, as well as a compressed man page in the `man` directory.
 
 - In order to install the tool, run
@@ -32,6 +33,8 @@ $ sudo make install
 ```
 You can of course use `doas` or any other similar program.  
 To uninstall, run the same command but replace `install` with `uninstall`.
+
+- In order to use the tool, you will need to have curl and libxml2 installed.
 
 ### Does This Work on Linux?
 Honestly, I don't know. It works on my machine, but it may not work on yours.
