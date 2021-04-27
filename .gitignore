@@ -1,9 +1,11 @@
 ### SwiftPM ###
 .build/
 
+## My Makefile ##
+man/fabricversions.1.gz
+
 ### VSC ###
 .vscode/
 
 ## IDEA Family ###
 .idea/
-cmake-build-*/
