@@ -109,12 +109,12 @@ public struct FabricVersions: ParsableCommand {
       \(Color(.none).attr(.bold).paint("In your Gradle buildscript:", if: colors))
       dependencies {
           minecraft(\(stringColor.paint("\"com.mojang:minecraft:\(mV!)\"", if: colors)))
-          mappings(\(stringColor.paint(yV.value.mavenCoords, if: colors)))
-          modImplementation(\(stringColor.paint(lV.value.mavenCoords, if: colors)))\(!noApi ? """
+          mappings(\(stringColor.paint("\"\(yV.value.mavenCoords)\"", if: colors)))
+          modImplementation(\(stringColor.paint("\"\(lV.value.mavenCoords)\"", if: colors)))\(!noApi ? """
 
 
           \(Color(.black).brighten().paint("// Fabric API", if: colors))
-          modImplementation(\(stringColor.paint(aV.value.mavenCoords, if: colors)))
+          modImplementation(\(stringColor.paint("\"\(aV.value.mavenCoords)\"", if: colors)))
       """ : "")
       }
       """)

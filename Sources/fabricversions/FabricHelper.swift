@@ -55,7 +55,7 @@ public func apiVersionForMinecraft(mcVersion: String) -> Result<MavenStringPair,
         XML.parse(data)["metadata", "versioning", "versions", "version"]
         .reversed()
         .first(where: { $0.text?.hasSuffix("+\(version.assets)") ?? false }) {
-        return .success(MavenStringPair(maven: "net.fabricmc.fabric-api.fabric-api", version: first.text!))
+        return .success(MavenStringPair(from: "net.fabricmc.fabric-api:fabric-api:\(first.text!)"))
       } else {
         return .failure(VersionError.runtimeError("Failed to find a FAPI version matching asset index \(version.assets)"))
       }
