@@ -95,8 +95,7 @@ public struct FabricVersions: ParsableCommand {
     if list {
       print("""
       Fabric Loader: \(lV.value.versionNumber)
-      Yarn Mappings: \(yV.value.versionNumber)
-      \(!noApi ? "Fabric API: \(aV.value.versionNumber)" : "")
+      Yarn Mappings: \(yV.value.versionNumber)\(!noApi ? "\nFabric API: \(aV.value.versionNumber)" : "")
       """)
 
       printed = true
@@ -111,12 +110,12 @@ public struct FabricVersions: ParsableCommand {
       dependencies {
           minecraft(\(stringColor.paint("\"com.mojang:minecraft:\(mV!)\"", if: colors)))
           mappings(\(stringColor.paint(yV.value.mavenCoords, if: colors)))
-          modImplementation(\(stringColor.paint(lV.value.mavenCoords, if: colors)))
+          modImplementation(\(stringColor.paint(lV.value.mavenCoords, if: colors)))\(!noApi ? """
 
-          \(!noApi ? """
+
           \(Color(.black).brighten().paint("// Fabric API", if: colors))
           modImplementation(\(stringColor.paint(aV.value.mavenCoords, if: colors)))
-          """ : "")
+      """ : "")
       }
       """)
 
@@ -132,9 +131,9 @@ public struct FabricVersions: ParsableCommand {
       \(Color(.none).attr(.bold).paint("In gradle.properties (example mod):", if: colors))
       \(keyColor.paint("minecraft_version", if: colors))=\(stringColor.paint(mV!, if: colors))
       \(keyColor.paint("yarn_mappings", if: colors))=\(stringColor.paint(yV.value.versionNumber, if: colors))
-      \(keyColor.paint("loader_version", if: colors))=\(stringColor.paint(lV.value.versionNumber, if: colors))
+      \(keyColor.paint("loader_version", if: colors))=\(stringColor.paint(lV.value.versionNumber, if: colors))\(!noApi ? """
 
-      \(!noApi ? """
+
       \(Color(.black).brighten().paint("# Fabric API", if: colors))
       \(keyColor.paint("fabric_version", if: colors))=\(stringColor.paint(aV.value.versionNumber, if: colors))
       """ : "")
