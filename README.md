@@ -1,7 +1,7 @@
 # Fabric Versions
 A simple command-line tool that can fetch the latest FabricMC versions for any given Minecraft version (as long as it exists and is supported by Fabric Meta).
 
-## Download?!
+## Download
 ### Arch Linux
 Download the latest release `.pkg.tar.zst` from the releases page and install it using `pacman -U`.  
 Alternatively, import my PGP key and install `fabricversions` from the AUR (also requires installing `swift-bin` or `swift-language`):
