@@ -3,7 +3,25 @@ A simple command-line tool that can fetch the latest FabricMC versions for any g
 
 ## Download?!
 ### Arch Linux
-Download the latest release `.pkg.tar.zst` from the releases page and install it using `pacman -U`.
+Download the latest release `.pkg.tar.zst` from the releases page and install it using `pacman -U`.  
+Alternatively, import my PGP key and install `fabricversions` from the AUR (also requires installing `swift-bin` or `swift-language`):
+```shell
+# pacman-key -r 4B81184A270A28B5
+# pacman-key --lsign-key 4B81184A270A28B5
+```
+You might also need to import the key manually, using `gpg`. Do that if you need to.
+
+```shell
+$ git clone https://aur.archlinux.org/swift-bin.git
+$ cd swift-bin
+$ makepkg -si
+$ cd ..
+$ git clone https://aur.archlinux.org/fabricversions.git
+$ cd fabricversions
+$ makepkg -si
+```
+
+If you want to remove uneeded dependencies afterwards, remove `swift-bin` and then remove all orphans `pacman -Qtdq | pacman -Rs -`.
 
 ### Debian
 A `.deb` package is coming soon.
@@ -12,7 +30,7 @@ A `.deb` package is coming soon.
 A `.rpm` package is coming soon.
 
 ### Building From Source
-- Download and install the latest  
+- Download and install the latest Swift toolchain  
 Arch users: Use [swift-bin](https://aur.archlinux.org/packages/swift-bin)<sup>AUR</sup>.  
 Debian and RHEL based users: Download from the [official site](https://swift.org/download).  
 macOS users: Install Xcode because for some reason the Swift package manager doesn't work without Xcode installed.  
