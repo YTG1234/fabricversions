@@ -100,17 +100,17 @@ fabricversions [-p] [--properties] [-b] [--buildscript] [-m version] [--minecraf
 * **-h**, **--help**  
   show help information
 
-By default, **fabricversions** fetches the latest Minecraft version and shows a plain, uncolored list of version numbers (no verbose).
+By default, **fabricversions** fetches the latest Minecraft version and shows a plain, uncoloured list of version numbers (no verbose).
   
 <a name="examples"></a>
 
 ### Examples
 
 - `fabricversions -cvm 1.16.2`  
-Enable verbose output, enable colored output and output a list of FabricMC versions for Minecraft 1.16.2.
+Enable verbose output, enable coloured output and output a list of FabricMC versions for Minecraft 1.16.2.
   
 - `fabricversions -cpb`  
-Output a version list, Gradle buildscript and a gradle.properties snippet for the latest Minecraft version, all colored.
+Output a version list, Gradle buildscript and a gradle.properties snippet for the latest Minecraft version, all coloured.
   
 - `fabricversions --no-list -pm 20w45a`  
 Output a gradle.properties snippet for Minecraft 20w45a.

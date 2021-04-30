@@ -32,7 +32,7 @@ public func sendRequest(target: URL) -> Result<Data, Error> {
   var errorW: Error? = nil
 
   grp.enter()
-  URLSession.shared.dataTask(with: target) {(data, response, error) in
+  URLSession.shared.dataTask(with: target) {(data, _, error) in
     guard let data = data else {
       errorW = error!
       grp.leave()
