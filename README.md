@@ -1,5 +1,5 @@
 # Fabric Versions
-A simple command-line tool that can fetch the latest FabricMC versions for any given Minecraft version (as long as it exists and is supported by Fabric Meta).
+A simple command line tool that can fetch the latest FabricMC versions for any given Minecraft version (as long as it exists and supported by Fabric Meta).
 
 ## Download
 ### Arch Linux
@@ -34,7 +34,7 @@ A `.rpm` package is coming soon.
 Arch users: Use [swift-bin](https://aur.archlinux.org/packages/swift-bin)<sup>AUR</sup>.  
 Debian and RHEL based users: Download from the [official site](https://swift.org/download).  
 macOS users: Install Xcode because for some reason the Swift package manager doesn't work without Xcode installed.  
-Other OSs: Figure it out.
+Other operating systems: Figure it out.
 
 - Run the following commands (requires a Make implementation such as GNU Make)
 ```shell
