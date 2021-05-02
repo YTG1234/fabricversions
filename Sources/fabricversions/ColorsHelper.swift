@@ -75,7 +75,7 @@ public protocol ColorRepresentation {
     func toString() -> String
     func fg() -> Self
     func bg() -> Self
-    func attr(attr: Attrs) -> Self
+    func attr(_ attribute: Attrs) -> Self
     static prefix func !(operand: Self) -> String
 }
 
@@ -83,9 +83,15 @@ public protocol ColorRepresentation {
  Only works in TrueColor terminals!
 */
 public struct ColorRgbRepresentation: Equatable, ColorRepresentation {
-    public func attr(attr: Attrs) -> ColorRgbRepresentation {
-        var newAttrs = attributes
-        newAttrs.append(attr)
+    public struct RGB: Equatable {
+        public let red: Int
+        public let green: Int
+        public let blue: Int
+    }
+
+    public func attr(_ attributes: Attrs) -> ColorRgbRepresentation {
+        var newAttrs = self.attributes
+        newAttrs.append(attributes)
         return ColorRgbRepresentation(with: color, and: newAttrs)
     }
 
@@ -112,12 +118,6 @@ public struct ColorRgbRepresentation: Equatable, ColorRepresentation {
 
     public static prefix func !(operand: ColorRgbRepresentation) -> String {
         operand.toString()
-    }
-
-    public struct RGB: Equatable {
-        public let red: Int
-        public let green: Int
-        public let blue: Int
     }
 
     public let color: RGB
@@ -223,7 +223,7 @@ public struct Color16Representation: Equatable, ColorRepresentation { // Gotta u
 }
 
 public extension String {
-  init(_ value: Color16Representation) {
+  init<T : ColorRepresentation>(_ value: T) {
     self = value.toString()
   }
 }

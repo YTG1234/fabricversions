@@ -102,18 +102,18 @@ public struct FabricVersions: ParsableCommand {
     }
 
     if buildscript {
-      let stringColor = Color(.red).brighten()
+      let stringColor = Color16(.red).brighten()
 
       if printed { print() }
       print("""
-      \(Color(.none).attr(.bold).paint("In your Gradle buildscript:", if: colors))
+      \(Color16(.none).attr(.bold).paint("In your Gradle buildscript:", if: colors))
       dependencies {
           minecraft(\(stringColor.paint("\"com.mojang:minecraft:\(mV!)\"", if: colors)))
           mappings(\(stringColor.paint("\"\(yV.value.maven)\"", if: colors)))
           modImplementation(\(stringColor.paint("\"\(lV.value.maven)\"", if: colors)))\(!noApi ? """
 
 
-          \(Color(.black).brighten().paint("// Fabric API", if: colors))
+          \(Color16(.black).brighten().paint("// Fabric API", if: colors))
           modImplementation(\(stringColor.paint("\"\(aV.value.maven)\"", if: colors)))
       """ : "")
       }
@@ -123,18 +123,18 @@ public struct FabricVersions: ParsableCommand {
     }
 
     if properties {
-      let keyColor = Color(.yellow)
-      let stringColor = Color(.red).brighten()
+      let keyColor = Color16(.yellow)
+      let stringColor = Color16(.red).brighten()
 
       if printed { print() }
       print("""
-      \(Color(.none).attr(.bold).paint("In gradle.properties (example mod):", if: colors))
+      \(Color16(.none).attr(.bold).paint("In gradle.properties (example mod):", if: colors))
       \(keyColor.paint("minecraft_version", if: colors))=\(stringColor.paint(mV!, if: colors))
       \(keyColor.paint("yarn_mappings", if: colors))=\(stringColor.paint(yV.value.version, if: colors))
       \(keyColor.paint("loader_version", if: colors))=\(stringColor.paint(lV.value.version, if: colors))\(!noApi ? """
 
 
-      \(Color(.black).brighten().paint("# Fabric API", if: colors))
+      \(Color16(.black).brighten().paint("# Fabric API", if: colors))
       \(keyColor.paint("fabric_version", if: colors))=\(stringColor.paint(aV.value.version, if: colors))
       """ : "")
       """)

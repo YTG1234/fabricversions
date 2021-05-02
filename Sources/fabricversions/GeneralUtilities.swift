@@ -21,7 +21,7 @@ public func toJson<T>(_ any: Any) throws -> T {
 
 public func printVerbose(_ strings: String...) {
   if options!.verbose {
-    print(Color(.black).brighten().paint(strings.joined(separator: "\n"), if: options!.colors))
+    print(Color16(.black).brighten().paint(strings.joined(separator: "\n"), if: options!.colors))
   }
 }
 
