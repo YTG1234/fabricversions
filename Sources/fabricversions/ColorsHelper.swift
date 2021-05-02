@@ -1,9 +1,12 @@
 fileprivate let BG = 40
 fileprivate let FG = 30
+fileprivate let TRUECOLOR_ADDITION = 8
+fileprivate let TRUECOLOR_MODIFIER = 2
 fileprivate let BRIGHT = 60
 
 public typealias Attrs = TextAttributes
-public typealias Color = ColorRepresentation
+public typealias Color16 = Color16Representation
+public typealias ColorRgb = ColorRgbRepresentation
 
 public enum TerminalColors: Int {
   case black = 0
@@ -68,49 +71,123 @@ public enum TextAttributes: Int {
   case no_overline = 55
 }
 
-public struct ColorRepresentation { // Gotta use those value types
-  public static let RESET: ColorRepresentation = ColorRepresentation(.black).reset()
+public protocol ColorRepresentation {
+    func toString() -> String
+    func fg() -> Self
+    func bg() -> Self
+    func attr(attr: Attrs) -> Self
+    static prefix func !(operand: Self) -> String
+}
 
-  public static prefix func !(operand: ColorRepresentation) -> String {
+/**
+ Only works in TrueColor terminals!
+*/
+public struct ColorRgbRepresentation: Equatable, ColorRepresentation {
+    public func attr(attr: Attrs) -> ColorRgbRepresentation {
+        var newAttrs = attributes
+        newAttrs.append(attr)
+        return ColorRgbRepresentation(with: color, and: newAttrs)
+    }
+
+    public func toString() -> String {
+        var initial = "\u{001B}[\(colorType + TRUECOLOR_ADDITION);\(TRUECOLOR_MODIFIER);\(color.red);\(color.green);\(color.blue)"
+        for attr in attributes {
+            if initial.last != ";" { initial += ";" }
+            initial += "\(attr.rawValue)"
+        }
+        return initial + "m"
+    }
+
+    public func fg() -> ColorRgbRepresentation {
+        var c = ColorRgbRepresentation(with: color, and: attributes)
+        c.colorType = FG
+        return c
+    }
+
+    public func bg() -> ColorRgbRepresentation {
+        var c = ColorRgbRepresentation(with: color, and: attributes)
+        c.colorType = BG
+        return c
+    }
+
+    public static prefix func !(operand: ColorRgbRepresentation) -> String {
+        operand.toString()
+    }
+
+    public struct RGB: Equatable {
+        public let red: Int
+        public let green: Int
+        public let blue: Int
+    }
+
+    public let color: RGB
+    public var colorType: Int
+    public let attributes: [Attrs]
+
+    public init(with color: RGB, and attributes: Attrs...) {
+        self.init(with: color, and: attributes)
+    }
+
+    public init(with color: RGB, and attributes: [Attrs]) {
+        self.color = color
+        self.attributes = attributes
+        self.colorType = FG
+    }
+
+    public init(r red: Int, g green: Int, b blue: Int, and attributes: Attrs...) {
+        self.init(r: red, g: green, b: blue, and: attributes)
+    }
+
+    public init(r red: Int, g green: Int, b blue: Int, and attributes: [Attrs]) {
+        self.color = RGB(red: red, green: green, blue: blue)
+        self.attributes = attributes
+        self.colorType = FG
+    }
+}
+
+public struct Color16Representation: Equatable, ColorRepresentation { // Gotta use those value types
+  public static let RESET: Color16Representation = Color16Representation(.black).reset()
+
+  public static prefix func !(operand: Color16Representation) -> String {
     return operand.toString()
   }
 
-  public func brighten() -> ColorRepresentation {
+  public func brighten() -> Color16Representation {
     var newNumbers = self.numbers
     newNumbers[2] = BRIGHT
 
-    return ColorRepresentation(newNumbers)
+    return Color16Representation(newNumbers)
   }
 
-  public func darken() -> ColorRepresentation {
+  public func darken() -> Color16Representation {
     var newNumbers = self.numbers
     newNumbers[2] = 0
 
-    return ColorRepresentation(newNumbers)
+    return Color16Representation(newNumbers)
   }
 
-  public func fg() -> ColorRepresentation {
+  public func fg() -> Color16Representation {
     var newNumbers = self.numbers
     newNumbers[1] = FG
 
-    return ColorRepresentation(newNumbers)
+    return Color16Representation(newNumbers)
   }
 
-  public func bg() -> ColorRepresentation {
+  public func bg() -> Color16Representation {
     var newNumbers = self.numbers
     newNumbers[1] = BG
 
-    return ColorRepresentation(newNumbers)
+    return Color16Representation(newNumbers)
   }
 
-  public func attr(_ attribute: Attrs) -> ColorRepresentation {
+  public func attr(_ attribute: Attrs) -> Color16Representation {
     var newNumbers = self.numbers
     newNumbers.append(attribute.rawValue)
 
-    return ColorRepresentation(newNumbers)
+    return Color16Representation(newNumbers)
   }
 
-  public func reset() -> ColorRepresentation {
+  public func reset() -> Color16Representation {
     return attr(.reset)
   }
 
@@ -118,7 +195,7 @@ public struct ColorRepresentation { // Gotta use those value types
     return (condition ? !self : "") + text + (condition ? !.RESET : "")
   }
 
-  fileprivate func toString() -> String {
+  public func toString() -> String {
     let firstNum = numbers[0...2].reduce(0, +)
     var initialString = "\u{001B}[" + (
       firstNum != 0 ? String(firstNum) : ""
@@ -146,7 +223,7 @@ public struct ColorRepresentation { // Gotta use those value types
 }
 
 public extension String {
-  init(_ value: ColorRepresentation) {
+  init(_ value: Color16Representation) {
     self = value.toString()
   }
 }
