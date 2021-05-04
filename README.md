@@ -1,5 +1,11 @@
-# Fabric Versions
+# FabricVersions
 A simple command line tool that can fetch the latest FabricMC versions for any given Minecraft version (as long as it exists and supported by Fabric Meta).
+
+## Contributing
+All contributions are welcome! Your contributions will be licensed under GPL-3.0-or-later (see [COPYING](COPYING)).  
+When creating new source files, paste the license notice (found at [NOTICE](NOTICE)) at the top of the file,
+enclosed in a block comment and keeping indentation.  
+When doing this, make sure to replace `YTG123` with your name. If you are changing an existing file, add your name after the existing name(s).
 
 ## Download
 ### Arch Linux
