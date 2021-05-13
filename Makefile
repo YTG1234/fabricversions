@@ -1,15 +1,10 @@
-NOSTATIC=0
 NOZIPMAN=0
 DESTDIR=/usr/local
 
 all: fabricversions
 
 fabricversions: gzipman
-ifeq ($(NOSTATIC),1)
 	swift build -c release
-else
-	swift build -c release -Xswiftc -static-stdlib
-endif
 
 gzipman:
 ifeq ($(NOZIPMAN),1)
